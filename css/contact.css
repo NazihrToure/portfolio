@@ -1,0 +1,125 @@
+body {
+  background-image: var(--gradient1), var(--gradient2), var(--gradient3), var(--gradient4), var(--gradient5), var(--gradient6), var(--gradient7), var(--gradient8), var(--gradient9), var(--gradient10);
+  background-size: cover;
+  background-position: center;
+  background-attachment: scroll;
+}
+
+.contact-page {
+  max-width: 760px;
+  min-height: calc(100svh - 100px);
+  padding-block: 130px 72px;
+}
+
+.contact-page h1 {
+  margin-bottom: 24px;
+  font-size: 3rem;
+}
+
+.contact-intro,
+.contact-notice {
+  line-height: 1.7;
+  color: #ddd;
+}
+
+.contact-notice {
+  margin-top: 20px;
+  color: #bbb;
+  font-size: .9rem;
+}
+
+.contact-notice a {
+  color: #d7ba7d;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+#contact-form {
+  margin-top: 36px;
+}
+
+.form-hint {
+  color: #bbb;
+  font-size: .875rem;
+  line-height: 1.5;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.form-field label {
+  font-weight: 700;
+}
+
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid #777;
+  border-radius: 5px;
+  background: #1c1c1c;
+  color: #fff;
+  font: inherit;
+  line-height: 1.5;
+}
+
+.form-field textarea {
+  resize: vertical;
+  min-height: 160px;
+}
+
+.form-field [aria-invalid="true"] {
+  border-color: #ffa3a3;
+}
+
+.field-error {
+  color: #ffa3a3;
+  font-size: .875rem;
+  line-height: 1.5;
+}
+
+.field-error:empty {
+  display: none;
+}
+
+.contact-submit {
+  min-height: 44px;
+  margin-top: 28px;
+  padding: 12px 20px;
+  border: 1px solid #d7ba7d;
+  border-radius: 5px;
+  background: #d7ba7d;
+  color: #131313;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.contact-submit:hover {
+  background: #ebcf93;
+}
+
+.contact-submit:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+#form-status {
+  margin-top: 20px;
+  line-height: 1.6;
+  color: #ddd;
+}
+
+#form-status[data-state="success"] {
+  color: #a7dfbe;
+}
+
+@media (min-width: 900px) {
+  body {
+    background-attachment: fixed;
+  }
+}

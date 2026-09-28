@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Contact N. Sahadou, student web developer.">
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="stylesheet" href="./css/background-gradients.css">
+  <link rel="stylesheet" href="./css/navbar.css">
+  <link rel="stylesheet" href="./css/contact.css">
+  <script src="./js/main.js" defer></script>
+  <script src="./js/contact.js" defer></script>
+  <title>Contact | N. Sahadou</title>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="nav-buttons" id="nav-buttons">
+        <ul>
+          <li><a href="index.html">Who is N.Sahadou</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html" aria-current="page">Contact</a></li>
+        </ul>
+      </div>
+      <button class="hamburger-menu-container" id="mobile-menu" type="button" aria-expanded="false" onclick="toggleMobileMenu()">
+        <span class="hamburger-lines"><span class="line line1"></span><span class="line line2"></span><span class="line line3"></span></span>
+      </button>
+    </nav>
+  </header>
+  <main class="contact-page max-width-container">
+    <h1>Contact</h1>
+    <p class="contact-intro">Have a project in mind or something to share? I'd love to hear from you.</p>
+    <p class="contact-notice">This form checks your message but does not send it yet. You can reach me on.</p>
+    <noscript>Please enable javascript otherwise some functions may not work.</noscript>
+    <form id="contact-form">
+      <p class="form-hint">All fields are required.</p>
+      <div class="form-field">
+        <label for="contact-name">Name</label>
+        <input id="contact-name" name="name" autocomplete="name" required maxlength="100">
+        <p class="field-error" id="name-error"></p>
+      </div>
+      <div class="form-field">
+        <label for="contact-email">Email</label>
+        <input id="contact-email" name="email" type="email" autocomplete="email" required maxlength="254">
+        <p class="field-error" id="email-error"></p>
+      </div>
+      <div class="form-field">
+        <label for="contact-message">Message</label>
+        <p class="form-hint" id="message-hint">At least 20 characters.</p>
+        <textarea id="contact-message" name="message" rows="7" required minlength="20" maxlength="5000"></textarea>
+        <p class="field-error" id="message-error"></p>
+      </div>
+      <button class="contact-submit" type="submit" disabled>Check message</button>
+      <p id="form-status"></p>
+    </form>
+  </main>
+  <footer class="max-width-container">
+    <p>&copy; 2024 Portfolio</p>
+    <div class="social-media">
+      <a href="https://www.linkedin.com/in/nazih-sahadou-634697223/"><img src="https://img.icons8.com/material-outlined/24/BBBBBB/linkedin--v1.png" alt=""></a>
+      <a href="https://github.com/NazihrToure"><img src="https://img.icons8.com/material-outlined/24/BBBBBB/github.png" alt=""></a>
+    </div>
+  </footer>
+</body>
+</html>

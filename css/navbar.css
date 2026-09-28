@@ -1,0 +1,125 @@
+nav {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: min(100% - 32px, 700px);
+  min-height: 70px;
+  margin: 16px auto 0;
+
+  & ul {
+    list-style: none;
+  }
+
+  & a {
+    &:hover,
+    &[aria-current="page"] {
+      color: #d7ba7d;
+      background: #242424;
+    }
+  }
+}
+
+.nav-buttons {
+  display: none;
+}
+
+.mobile-nav-buttons {
+  position: absolute;
+  top: 70px;
+  right: 0;
+  width: min(100%, 360px);
+  padding: 10px;
+  border: 1px solid #555;
+  border-radius: 12px;
+  background: rgba(24, 24, 24, .96);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, .35);
+  backdrop-filter: blur(10px);
+
+  & a {
+    display: block;
+    padding: 14px 16px;
+    border-radius: 8px;
+    color: #fff;
+  }
+}
+
+.hamburger-menu-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid #555;
+  border-radius: 8px;
+  background: #1c1c1c;
+  color: #fff;
+  cursor: pointer;
+}
+
+.hamburger-lines {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 23px;
+  height: 18px;
+
+  & .line {
+    display: block;
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    transition: transform .2s ease, opacity .2s ease;
+  }
+}
+
+.hamburger-menu-container[aria-expanded="true"] {
+  color: #d7ba7d;
+
+  & .line1 {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  & .line2 {
+    opacity: 0;
+  }
+
+  & .line3 {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+}
+
+@media (min-width: 900px) {
+  nav {
+    width: min(100% - 64px, 700px);
+    justify-content: center;
+  }
+
+  .nav-buttons {
+    display: block;
+    width: 100%;
+
+    & ul {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    & a {
+      display: block;
+      padding: 12px 18px;
+      border-radius: 30px;
+      white-space: nowrap;
+      font-size: 1.05rem;
+    }
+  }
+
+  .hamburger-menu-container,
+  .mobile-nav-buttons {
+    display: none;
+  }
+}

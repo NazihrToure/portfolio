@@ -1,0 +1,256 @@
+body {
+  background-image: var(--gradient1), var(--gradient2), var(--gradient3), var(--gradient4), var(--gradient5), var(--gradient6), var(--gradient7), var(--gradient8), var(--gradient9), var(--gradient10);
+  background-size: cover;
+  background-position: center;
+  background-attachment: scroll;
+}
+
+.blog-page {
+  padding-top: 125px;
+  padding-bottom: 70px;
+
+  & section {
+    padding: 0;
+  }
+}
+
+.hamburger-menu-container {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.blog-intro {
+  max-width: 800px;
+  padding-bottom: 75px !important;
+
+  & h1 {
+    padding: 22px 0 24px;
+    text-align: left;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    line-height: 1.05;
+    letter-spacing: -.07em;
+    font-weight: 700;
+
+    & span {
+      color: #d7ba7d;
+      font-weight: 700;
+    }
+  }
+}
+
+.eyebrow {
+  color: #d7ba7d;
+  font-size: .82rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.intro-copy {
+  max-width: 690px;
+  color: #c5c5c5;
+  font-size: clamp(1.05rem, 2vw, 1.3rem);
+  line-height: 1.75;
+}
+
+.text-link,
+.outro-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 30px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid #d7ba7d;
+  color: #d7ba7d;
+  font-weight: 700;
+
+  &:hover {
+    color: #fff;
+    border-color: #fff;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #d7ba7d;
+    outline-offset: 5px;
+  }
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 20px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #444;
+
+  & h2 {
+    margin-top: 10px;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+  }
+}
+
+.note-count {
+  color: #8f8f8f;
+  font-size: .9rem;
+  white-space: nowrap;
+}
+
+.post-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+  padding: 32px 0 38px;
+  border-bottom: 1px solid #333;
+}
+
+.post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+  color: #aaa;
+  font-size: .88rem;
+
+  & span {
+    color: inherit;
+
+    &:first-child {
+      color: #d7ba7d;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+  }
+}
+
+.post-body {
+  & h3 {
+    max-width: 760px;
+    color: #fff;
+    font-size: clamp(1.6rem, 3vw, 2.5rem);
+    line-height: 1.25;
+    font-weight: 700;
+  }
+
+  & > p {
+    max-width: 760px;
+    margin-top: 18px;
+    color: #bdbdbd;
+    line-height: 1.8;
+    font-size: 1rem;
+  }
+
+  & details {
+    margin-top: 24px;
+  }
+
+  & summary {
+    width: fit-content;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #d7ba7d;
+    color: #d7ba7d;
+    cursor: pointer;
+    font-weight: 700;
+    list-style: none;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &:hover {
+      color: #fff;
+      border-color: #fff;
+    }
+
+    &:focus-visible {
+      outline: 2px solid #d7ba7d;
+      outline-offset: 5px;
+    }
+  }
+}
+
+.post-expanded {
+  max-width: 760px;
+  margin-top: 24px;
+  padding: 4px 0 4px 24px;
+  border-left: 2px solid #d7ba7d;
+
+  & p {
+    max-width: 760px;
+    margin-top: 18px;
+    color: #bdbdbd;
+    line-height: 1.8;
+    font-size: 1rem;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+}
+
+.blog-outro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 30px;
+  margin-top: 70px;
+  padding: 25px;
+  border: 1px solid #333;
+  border-radius: 5px;
+  background: #1c1c1c;
+
+  & h2 {
+    margin-top: 10px;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 700;
+  }
+
+  & p:last-child {
+    margin-top: 12px;
+    color: #bdbdbd;
+    line-height: 1.6;
+  }
+}
+
+.outro-link {
+  margin: 0;
+  white-space: nowrap;
+}
+
+@media (min-width: 701px) {
+  .blog-page {
+    padding-top: 145px;
+    padding-bottom: 100px;
+  }
+
+  .blog-intro {
+    padding-bottom: 110px !important;
+  }
+
+  .post-card {
+    grid-template-columns: minmax(150px, 250px) minmax(0, 1fr);
+    gap: 35px;
+    padding: 40px 0 48px;
+  }
+
+  .post-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .blog-outro {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 100px;
+    padding: 35px;
+  }
+}
+
+@media (min-width: 900px) {
+  body {
+    background-attachment: fixed;
+  }
+}

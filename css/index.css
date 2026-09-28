@@ -1,0 +1,149 @@
+#full-width-background {
+  position: relative;
+}
+
+section {
+  padding-block: 56px;
+
+  & h1 {
+    margin-bottom: 32px;
+    text-align: center;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+  }
+}
+
+#home-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100svh;
+  padding: 120px 0 64px;
+  background-image: var(--gradient1), var(--gradient2), var(--gradient3), var(--gradient4), var(--gradient5), var(--gradient6), var(--gradient7), var(--gradient8), var(--gradient9), var(--gradient10);
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-container {
+  text-align: center;
+
+  & h1 {
+    margin-bottom: 24px;
+  }
+
+  & p {
+    max-width: 760px;
+    margin-inline: auto;
+    color: #ddd;
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    line-height: 1.75;
+  }
+}
+
+.weather {
+  margin-top: 24px;
+  min-height: 76px;
+  color: #bbb;
+  font-size: .9rem;
+}
+
+.weather-reading {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+}
+
+.weather[data-state="success"] #weather-status {
+  color: #d7ba7d;
+}
+
+.weather-source {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: .8rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+#weather-retry {
+  min-height: 44px;
+  padding: 8px;
+  border: 0;
+  background: transparent;
+  color: #d7ba7d;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.hero-link-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  margin: 48px auto 0;
+  font-weight: 700;
+
+  &:hover {
+    color: #d7ba7d;
+  }
+
+  & img {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+#about-section {
+  & p {
+    max-width: 900px;
+    margin-inline: auto;
+    color: #ddd;
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    line-height: 1.8;
+  }
+}
+
+.skills-span-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+
+  & span {
+    padding: 10px 16px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    background: #232323;
+    color: #bbb;
+    font-size: 1rem;
+
+    &:hover {
+      border-color: #fff;
+      color: #d7ba7d;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  section {
+    padding-block: 80px;
+  }
+
+  .skills-span-box {
+    gap: 16px;
+
+    & span {
+      padding: 12px 24px;
+    }
+  }
+}
+
+@media (min-width: 900px) {
+  #home-section {
+    background-attachment: fixed;
+  }
+}
