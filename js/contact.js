@@ -1,9 +1,13 @@
 function validateContactField(field) {
   const value = field.value.trim();
 
-  if (field.name === "name" && !value) {
-    return "Enter your name.";
+  if (field.name === "name") {
+  if (!value) return "Enter your name.";
+
+  if (!/^[\p{L}\p{M}' -]+$/u.test(value)) {
+    return "Enter a valid name.";
   }
+}
   if (field.name === "email") {
     if (!value) return "Enter your email address.";
     if (field.validity.typeMismatch) {
