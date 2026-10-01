@@ -16,20 +16,18 @@
     <noscript>Please enable javascript otherwise some functions may not work.</noscript>
       <header>
         <nav>
-          <div class="nav-buttons" id="nav-buttons">
-            <ul>
+          <ul class="nav-buttons" id="nav-buttons">
               <li><a href="index.html" aria-current="page">Who is N.Sahadou</a></li>
               <li><a href="projects.html">Projects</a></li>
               <li><a href="blog.html">Blog</a></li>
               <li><a href="contact.html">Contact</a></li>
             </ul>
-          </div>
-          <button class="hamburger-menu-container" id="mobile-menu" type="button" aria-expanded="false" onclick="toggleMobileMenu()">
-            <div class="hamburger-lines">
+          <button class="hamburger-menu-container" id="mobile-menu" type="button" aria-label="Menu" aria-controls="nav-buttons" aria-expanded="false" onclick="toggleMobileMenu()">
+            <span class="hamburger-lines" aria-hidden="true">
                 <span class="line line1"></span>
                 <span class="line line2"></span>
                 <span class="line line3"></span>
-            </div>
+            </span>
           </button>
         </nav>
       </header>
@@ -54,14 +52,14 @@
               </div>
             </div>
             <a href="#about-section" class="hero-link-group">
-              <span href="#about-section" onmouseover="changeIconColor('arrow-icon', 'https://img.icons8.com/ios-glyphs/100/D7BA7D/expand-arrow.png')" onmouseout="changeIconColor('arrow-icon', 'https://img.icons8.com/ios-glyphs/100/ffffff/expand-arrow.png')">View my portfolio</span>
-              <img id="arrow-icon" src="https://img.icons8.com/ios-glyphs/100/ffffff/expand-arrow.png" onmouseover="changeIconColor('arrow-icon', 'https://img.icons8.com/ios-glyphs/100/D7BA7D/expand-arrow.png')" onmouseout="changeIconColor('arrow-icon', 'https://img.icons8.com/ios-glyphs/100/ffffff/expand-arrow.png')">
+              <span onmouseover="changeIconColor('arrow-icon', 'https://img.icons8.com/ios-glyphs/100/D7BA7D/expand-arrow.png')" onmouseout="changeIconColor('arrow-icon', 'https://img.icons8.com/ios-glyphs/100/ffffff/expand-arrow.png')">View my portfolio</span>
+              <img id="arrow-icon" src="https://img.icons8.com/ios-glyphs/100/ffffff/expand-arrow.png" alt="" onmouseover="changeIconColor('arrow-icon', 'https://img.icons8.com/ios-glyphs/100/D7BA7D/expand-arrow.png')" onmouseout="changeIconColor('arrow-icon', 'https://img.icons8.com/ios-glyphs/100/ffffff/expand-arrow.png')">
             </a>
           </section>
         </div>
         <div class="max-width-container">
           <section id="about-section">
-            <h1>About</h1>
+            <h2>About</h2>
             <p>
               I am a web developer with a passion for creating beautiful and
               functional websites. I have experience with HTML, CSS, JavaScript,
@@ -70,20 +68,19 @@
             </p>
           </section>
           <section id="skills-section">
-            <h1>Skills</h1>
-            <div class="skills-span-box">
-              <span>Java</span>
-              <span>C#</span>
-              <span>Python</span>
-              <span>React</span>
-              <span>Node.js</span>
-              <span>JavaScript</span>
-              <span>HTML</span>
-              <span>CSS</span>
-              <span>Git</span>
-              <span>SQL</span>
-
-            </div>
+            <h2>Skills</h2>
+            <ul class="skills-span-box">
+              <li>Java</li>
+              <li>C#</li>
+              <li>Python</li>
+              <li>React</li>
+              <li>Node.js</li>
+              <li>JavaScript</li>
+              <li>HTML</li>
+              <li>CSS</li>
+              <li>Git</li>
+              <li>SQL</li>
+            </ul>
           </section>
         </div>
       </main>
@@ -91,10 +88,10 @@
       <p>© 2026 Portfolio</p>
       <div class="social-media">
         <a href="https://www.linkedin.com/in/nazih-sahadou-634697223/" target="_blank" onmouseover="changeIconColor('footer-linkedin-icon', 'https://img.icons8.com/material-outlined/24/D7BA7D/linkedin--v1.png')" onmouseout="changeIconColor('footer-linkedin-icon', 'https://img.icons8.com/material-outlined/24/BBBBBB/linkedin--v1.png')">
-          <img id="footer-linkedin-icon" src="https://img.icons8.com/material-outlined/24/BBBBBB/linkedin--v1.png" />
+          <img id="footer-linkedin-icon" src="https://img.icons8.com/material-outlined/24/BBBBBB/linkedin--v1.png" alt="LinkedIn" />
         </a>
         <a href="https://github.com/NazihrToure?tab=repositories" target="_blank" onmouseover="changeIconColor('footer-github-icon', 'https://img.icons8.com/material-outlined/24/D7BA7D/github.png')" onmouseout="changeIconColor('footer-github-icon', 'https://img.icons8.com/material-outlined/24/BBBBBB/github.png')">
-          <img id="footer-github-icon" src="https://img.icons8.com/material-outlined/24/BBBBBB/github.png" />
+          <img id="footer-github-icon" src="https://img.icons8.com/material-outlined/24/BBBBBB/github.png" alt="GitHub" />
         </a>
       </div>
     </footer>

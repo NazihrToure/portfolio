@@ -77,12 +77,13 @@
   }
 
   & .span-box {
+    list-style: none;
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     margin-top: auto;
 
-    & span {
+    & li {
       padding: 5px 9px;
       border: 1px solid #3b3b3b;
       border-radius: 4px;

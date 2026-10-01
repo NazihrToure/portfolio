@@ -5,7 +5,8 @@
 section {
   padding-block: 56px;
 
-  & h1 {
+  & h1,
+  & h2 {
     margin-bottom: 32px;
     text-align: center;
     font-size: clamp(2rem, 5vw, 3rem);
@@ -108,12 +109,13 @@ section {
 }
 
 .skills-span-box {
+  list-style: none;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
 
-  & span {
+  & li {
     padding: 10px 16px;
     border: 1px solid #333;
     border-radius: 5px;
@@ -136,7 +138,7 @@ section {
   .skills-span-box {
     gap: 16px;
 
-    & span {
+    & li {
       padding: 12px 24px;
     }
   }

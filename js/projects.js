@@ -37,10 +37,10 @@ function createProjectCard(project) {
   title.textContent = project.name;
   card.append(title);
 
-  const technologies = document.createElement("div");
+  const technologies = document.createElement("ul");
   technologies.className = "span-box";
   project.technologies.forEach(function(technology) {
-    const tag = document.createElement("span");
+    const tag = document.createElement("li");
     tag.textContent = technology;
     technologies.append(tag);
   });

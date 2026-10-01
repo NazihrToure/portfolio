@@ -31,7 +31,7 @@ button {
   margin-inline: auto;
 }
 
-header {
+body > header {
   position: absolute;
   inset: 0 0 auto;
   z-index: 10;
