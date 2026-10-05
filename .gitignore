@@ -24,3 +24,6 @@ yarn-error.log*
 
 # documentation
 /SITE_CODE_WALKTHROUGH.md
+
+**/bin/
+**/obj/
