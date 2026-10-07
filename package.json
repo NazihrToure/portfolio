@@ -7,10 +7,17 @@
     "gh-pages": "^6.1.1"
   },
   "scripts": {
-    "dev": "python3 -m http.server 3000 --bind 127.0.0.1",
+    "dev": "concurrently --kill-others --names frontend,backend \"npm run frontend\" \"npm run backend\"",
+    "frontend": "python3 -m http.server 3000 --bind 127.0.0.1",
     "backend": "\"$HOME/.dotnet/dotnet\" run --project backend/Portfolio.Api",
     "build": "node scripts/build.cjs",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.5"
+  },
+  "overrides": {
+    "shell-quote": "1.12.0"
   }
 }
