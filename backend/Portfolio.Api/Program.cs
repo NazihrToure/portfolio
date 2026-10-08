@@ -1,6 +1,7 @@
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Portfolio.Api.Data;
+using Portfolio.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,7 @@ builder.Services.AddDbContext<PortfolioDbContext>(options =>
     options.UseSqlite(connectionString.ConnectionString));
 
 builder.Services.AddControllers();
+builder.Services.AddScoped<ProjectService>();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();

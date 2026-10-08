@@ -1,12 +1,24 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Portfolio.Api.DTOs;
 
 public class CreateProjectDto
 {
+    [Required]
     public string Title { get; set; } = string.Empty;
+
+    [Required]
     public string Description { get; set; } = string.Empty;
+
+    [Required]
     public string Category { get; set; } = string.Empty;
+
     public List<string> Technologies { get; set; } = new();
-    public string GitHubUrl { get; set; } = string.Empty;
+
+    [Url]
+    public string? GitHubUrl { get; set; }
+
+    [Url]
     public string? LiveUrl { get; set; }
     public DateTime Date { get; set; }
 }
