@@ -15,6 +15,7 @@ builder.Services.AddDbContext<PortfolioDbContext>(options =>
 
 builder.Services.AddControllers();
 builder.Services.AddScoped<ProjectService>();
+builder.Services.AddScoped<BlogpostService>();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();

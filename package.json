@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "concurrently --kill-others --names frontend,backend \"npm run frontend\" \"npm run backend\"",
-    "frontend": "python3 -m http.server 3000 --bind 127.0.0.1",
+    "frontend": "python3 -m http.server 2000 --bind 127.0.0.1",
     "backend": "\"$HOME/.dotnet/dotnet\" run --project backend/Portfolio.Api",
     "build": "node scripts/build.cjs",
     "predeploy": "npm run build",
