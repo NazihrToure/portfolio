@@ -93,6 +93,11 @@ body {
   white-space: nowrap;
 }
 
+#blog-status {
+  margin-top: 20px;
+  white-space: normal;
+}
+
 .post-card {
   display: grid;
   grid-template-columns: minmax(0, 1fr);

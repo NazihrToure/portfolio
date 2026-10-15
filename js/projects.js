@@ -1,25 +1,4 @@
-const projects = [
-  {
-    name: "Yona Group",
-    technologies: ["JavaScript", "HTML", "CSS"],
-    url: "https://www.yonagroup.nl/"
-  },
-  {
-    name: "Scutis",
-    technologies: ["TypeScript", "Next.js", "Tailwind CSS"],
-    url: "https://scutis.nl/"
-  },
-  {
-    name: "Dialoog Delft",
-    technologies: ["JavaScript", "HTML", "CSS"],
-    url: "https://dialoogdelft.netlify.app/"
-  },
-  {
-    name: "SOC Management System",
-    technologies: ["Next.js", "C#", "TypeScript"],
-    url: null
-  }
-];
+let projects = [];
 
 function filterProjects(projectList, technology) {
   if (technology === "all") return projectList;
@@ -29,12 +8,21 @@ function filterProjects(projectList, technology) {
   });
 }
 
+function isWebsiteUrl(value) {
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" || url.protocol === "http:";
+  } catch {
+    return false;
+  }
+}
+
 function createProjectCard(project) {
   const card = document.createElement("article");
   card.className = "project-box";
 
   const title = document.createElement("h2");
-  title.textContent = project.name;
+  title.textContent = project.title;
   card.append(title);
 
   const technologies = document.createElement("ul");
@@ -46,16 +34,35 @@ function createProjectCard(project) {
   });
   card.append(technologies);
 
-  if (project.url) {
+  const links = document.createElement("div");
+  links.className = "project-links";
+
+  if (isWebsiteUrl(project.liveUrl)) {
     const link = document.createElement("a");
     link.className = "project-link";
-    link.href = project.url;
+    link.href = project.liveUrl;
+    link.rel = "noopener noreferrer";
     link.target = "_blank";
     link.textContent = "View project ";
     const arrow = document.createElement("span");
     arrow.textContent = "\u2197";
     link.append(arrow);
-    card.append(link);
+    links.append(link);
+  }
+  if (isWebsiteUrl(project.gitHubUrl)) {
+    const link = document.createElement("a");
+    link.className = "project-link project-link-github";
+    link.href = project.gitHubUrl;
+    link.rel = "noopener noreferrer";
+    link.target = "_blank";
+    link.textContent = "View GitHub ";
+    const arrow = document.createElement("span");
+    arrow.textContent = "\u2197";
+    link.append(arrow);
+    links.append(link);
+  }
+  if (links.childElementCount > 0) {
+    card.append(links);
   }
 
   return card;
@@ -93,14 +100,26 @@ function handleProjectFilter(event) {
   renderProjects(filteredProjects);
 }
 
-function initializeProjects() {
+async function initializeProjects() {
   const select = document.getElementById("technology-filter");
   if (!select) return;
 
-  populateTechnologyFilter(projects);
-  renderProjects(projects);
-  select.addEventListener("change", handleProjectFilter);
-  select.disabled = false;
+  const status = document.getElementById("project-count");
+  status.textContent = "Loading projects…";
+  try {
+    projects = await fetchCollection("projects");
+    populateTechnologyFilter(projects);
+    renderProjects(projects);
+    if (projects.length === 0) {
+      status.textContent = "No projects have been published yet.";
+    }
+    select.addEventListener("change", handleProjectFilter);
+    select.disabled = projects.length === 0;
+  } catch {
+    document.getElementById("projects-list").replaceChildren();
+    status.textContent = "Projects could not be loaded. Please try again later.";
+    select.disabled = true;
+  }
 }
 
 initializeProjects();

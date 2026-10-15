@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="./css/navbar.css">
   <link rel="stylesheet" href="./css/blog.css">
   <script src="./js/main.js" defer></script>
+  <script src="./js/api.js" defer></script>
+  <script src="./js/blog.js" defer></script>
   <title>Blog | N. Sahadou</title>
 </head>
 <body>
@@ -35,44 +37,8 @@
     </section>
     <section class="blog-content">
         <header class="section-heading"><p class="eyebrow">From the notebook</p><h2 id="notes-title">Recent notes</h2></header>
-        <div class="post-list">
-        <article class="post-card" id="building-to-learn">
-            <div class="post-meta"><span>01</span><span>Learning</span></div>
-            <div class="post-body"><h3>Building to learn, learning to build</h3>
-            <p>Coursework gives me the foundations, but making something on my own is where the details start to click. A small page can teach a lot about layout, accessibility, and the decisions behind a finished product.</p>
-            <details>
-              <summary>Read note <span>↗</span></summary>
-              <div class="post-expanded">
-                <p>When I start a project, I try to make the first version simple enough to finish. Then I look at what feels awkward: a layout that breaks on a phone, a button with no clear purpose, or a section that says too much at once.</p><p>Each pass gives me a more specific question to answer. That makes practice feel less like memorizing tools and more like learning how to solve problems.</p>
-              </div>
-            </details>
-            </div>
-        </article>
-        <article class="post-card" id="responsive-design">
-            <div class="post-meta"><span>02</span><span>Design</span></div>
-            <div class="post-body"><h3>What responsive design is teaching me</h3>
-            <p>A design can look finished on a laptop and still have work to do on a smaller screen. Thinking about spacing, reading order, and tap targets early makes the whole experience clearer.</p>
-            <details>
-              <summary>Read note <span>↗</span></summary>
-              <div class="post-expanded">
-                <p>I used to think of mobile styling as shrinking everything down. Now I look at which information matters first and how each section should flow when there is less space.</p><p>That shift helps on desktop too. If a page is easy to scan on a narrow screen, its structure is usually stronger everywhere.</p>
-              </div>
-            </details>
-            </div>
-        </article>
-        <article class="post-card" id="small-improvements">
-            <div class="post-meta"><span>03</span><span>Process</span></div>
-            <div class="post-body"><h3>Small improvements add up</h3>
-            <p>Not every useful change is a new feature. Clearer copy, better contrast, or a more predictable navigation menu can make a project feel much more complete.</p>
-            <details>
-              <summary>Read note <span>↗</span></summary>
-              <div class="post-expanded">
-                <p>My favorite part of revisiting a project is noticing things I missed the first time. Those details show what I have learned since I built it.</p><p>I keep a short list of improvements as I work. It helps me finish a version, come back with fresh eyes, and give the next change a clear purpose.</p>
-              </div>
-            </details>
-            </div>
-        </article>
-        </div>
+        <p id="blog-status" class="note-count" role="status">Loading posts…</p>
+        <div class="post-list" id="blogposts-list"></div>
     </section>
     <aside class="blog-outro"><div><p class="eyebrow">Still learning</p><h2>More work in progress.</h2><p>This space will grow along with the projects and ideas behind it.</p></div><a class="outro-link" href="projects.html">Explore projects <span>↗</span></a></aside>
     </main>

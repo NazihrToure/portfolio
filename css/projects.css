@@ -107,6 +107,21 @@
   }
 }
 
+.project-box .project-link-github {
+  color: #8ab4f8;
+
+  &:hover {
+    color: #c6dafc;
+  }
+}
+
+.project-links {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
 @media (min-width: 640px) {
   .projects-container {
     grid-template-columns: repeat(2, minmax(0, 1fr));
