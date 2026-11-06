@@ -41,7 +41,9 @@ builder.Services.ConfigureApplicationCookie(options =>
     };
 });
 builder.Services.AddAuthorization();
-builder.Services.AddControllers();
+builder.Services.AddAntiforgery(options => options.HeaderName = "X-CSRF-TOKEN");
+builder.Services.AddControllersWithViews(options =>
+    options.Filters.Add(new Microsoft.AspNetCore.Mvc.AutoValidateAntiforgeryTokenAttribute()));
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("PortfolioFrontend", policy =>
@@ -56,6 +58,11 @@ builder.Services.AddScoped<BlogpostService>();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    await RoleService.EnsureRolesAsync(scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>());
+}
 
 if (app.Environment.IsDevelopment())
 {
