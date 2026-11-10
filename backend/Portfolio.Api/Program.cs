@@ -4,7 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Portfolio.Api.Data;
 using Portfolio.Api.Services;
 
-var builder = WebApplication.CreateBuilder(args);
+var assigningRole = args.FirstOrDefault() == "assign-role";
+var builder = WebApplication.CreateBuilder(assigningRole ? Array.Empty<string>() : args);
 
 var connectionString = new SqliteConnectionStringBuilder(
     builder.Configuration.GetConnectionString("PortfolioDatabase"));
@@ -40,6 +41,8 @@ builder.Services.ConfigureApplicationCookie(options =>
         return Task.CompletedTask;
     };
 });
+builder.Services.Configure<SecurityStampValidatorOptions>(options =>
+    options.ValidationInterval = TimeSpan.Zero);
 builder.Services.AddAuthorization();
 builder.Services.AddAntiforgery(options => options.HeaderName = "X-CSRF-TOKEN");
 builder.Services.AddControllersWithViews(options =>
@@ -62,6 +65,18 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     await RoleService.EnsureRolesAsync(scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>());
+    if (assigningRole)
+    {
+        if (!app.Environment.IsDevelopment() || args.Length != 3 || !RoleService.Names.Contains(args[2]))
+        {
+            throw new InvalidOperationException("Gebruik in Development: assign-role <email> <Gast|Editor|Admin>");
+        }
+
+        await RoleService.AssignRoleAsync(scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>(),
+            scope.ServiceProvider.GetRequiredService<PortfolioDbContext>(), args[1], args[2]);
+        Console.WriteLine($"Rol {args[2]} toegekend aan {args[1]}. Log opnieuw in.");
+        return;
+    }
 }
 
 if (app.Environment.IsDevelopment())
