@@ -45,7 +45,9 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("PortfolioFrontend", policy =>
     {
-        policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+        policy.WithOrigins("https://nazihtoureportfolio.netlify.app")
+            .AllowAnyMethod()
+            .AllowAnyHeader();
     });
 });
 builder.Services.AddScoped<ProjectService>();
