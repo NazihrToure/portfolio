@@ -6,9 +6,11 @@ public class CorsTests
 {
     [Theory]
     [InlineData("https://nazihtoureportfolio.netlify.app", true)]
+    [InlineData("http://localhost:2000", true)]
+    [InlineData("http://127.0.0.1:2000", true)]
     [InlineData("http://localhost:5173", false)]
     [InlineData("https://another-origin.example", false)]
-    public async Task OnlyPortfolioOriginReceivesCorsPermission(string origin, bool allowed)
+    public async Task OnlyConfiguredOriginsReceiveCorsPermission(string origin, bool allowed)
     {
         using var factory = new ApiFactory();
         using var client = factory.NewClient();

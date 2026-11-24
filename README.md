@@ -191,7 +191,7 @@ Schrijfacties vereisen geldige invoer en een geldig CSRF-token. Een niet-bestaan
 | `GET /api/auth/me` | Ingelogd | 200 of 401 |
 | `POST /api/auth/logout` | Ingelogd, CSRF vereist | 204, 400 of 401 |
 
-De bestaande frontend gebruikt alleen publieke GET-verzoeken. CORS staat alleen de origin `https://nazihtoureportfolio.netlify.app` toe, met alle methoden en headers, inclusief preflight-verzoeken. Andere origins, waaronder localhost, krijgen geen CORS-toestemming. CORS is een browserbeperking en blokkeert geen rechtstreekse API-clients. Autorisatie en CSRF-controles blijven gelden. Er wordt geen `Access-Control-Allow-Credentials` teruggestuurd. Cross-origin cookie-login vanuit de statische frontend is niet toegevoegd; gebruik voor beheer de API rechtstreeks. Er is geen nieuw dashboard.
+De bestaande frontend gebruikt alleen publieke GET-verzoeken. CORS staat de origins `https://nazihtoureportfolio.netlify.app`, `http://localhost:2000` en `http://127.0.0.1:2000` toe, met alle methoden en headers, inclusief preflight-verzoeken. Andere origins krijgen geen CORS-toestemming. CORS is een browserbeperking en blokkeert geen rechtstreekse API-clients. Autorisatie en CSRF-controles blijven gelden. Er wordt geen `Access-Control-Allow-Credentials` teruggestuurd. Cross-origin cookie-login vanuit de statische frontend is niet toegevoegd; gebruik voor beheer de API rechtstreeks. Er is geen nieuw dashboard.
 
 ## Tests uitvoeren
 
@@ -200,7 +200,7 @@ dotnet build Portfolio.slnx
 dotnet test Portfolio.slnx
 ```
 
-De 33 xUnit-testgevallen gebruiken per test een eigen in-memory SQLite-database met de echte migraties. Ze wijzigen geen lokale portfoliodatabase. De HTTP-tests gebruiken WebApplicationFactory, echte Identity-gebruikers en cookies; authenticatie wordt niet nagebootst.
+De 35 xUnit-testgevallen gebruiken per test een eigen in-memory SQLite-database met de echte migraties. Ze wijzigen geen lokale portfoliodatabase. De HTTP-tests gebruiken WebApplicationFactory, echte Identity-gebruikers en cookies; authenticatie wordt niet nagebootst.
 
 Getest worden:
 
@@ -211,7 +211,7 @@ Getest worden:
 - Login, cookie-eigenschappen, logout, mislukte login en accountblokkering.
 - CSRF-bescherming, herhaalbare roltoekenning en intrekking van sessies bij rolwijzigingen.
 - Behoud van bestaande SQLite-portfolio-inhoud bij de Identity-migratie.
-- CORS voor de portfolio-origin en geweigerde andere origins, inclusief preflight-verzoeken en behoud van autorisatie.
+- CORS voor de portfolio-origin, beide lokale frontendadressen en geweigerde andere origins, inclusief preflight-verzoeken en behoud van autorisatie.
 
 ## Frontendbuild
 
