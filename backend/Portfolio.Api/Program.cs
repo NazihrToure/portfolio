@@ -76,7 +76,38 @@ using (var scope = app.Services.CreateScope())
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options => options.UseRequestInterceptor("""
+        async function(request) {
+            const url = new URL(request.url, window.location.href);
+            if (url.origin !== window.location.origin) {
+                return request;
+            }
+
+            request.credentials = "same-origin";
+            const method = (request.method || "GET").toUpperCase();
+            if (["GET", "HEAD", "OPTIONS", "TRACE"].includes(method)) {
+                return request;
+            }
+
+            const tokenUrl = new URL("../api/auth/csrf", window.location.href);
+            const response = await fetch(tokenUrl, {
+                credentials: "same-origin",
+                cache: "no-store"
+            });
+            if (!response.ok) {
+                throw new Error("CSRF-token ophalen mislukt. Vernieuw Swagger en probeer opnieuw.");
+            }
+
+            const data = await response.json();
+            if (typeof data.token !== "string" || !data.token) {
+                throw new Error("De API heeft geen geldig CSRF-token teruggegeven.");
+            }
+
+            request.headers = request.headers || {};
+            request.headers["X-CSRF-TOKEN"] = data.token;
+            return request;
+        }
+        """));
 }
 
 app.UseCors("PortfolioFrontend");

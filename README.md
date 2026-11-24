@@ -159,7 +159,7 @@ curl -i -b "$AUTH_DIR/cookies" \
   "$API_URL/api/projects"
 ```
 
-Gebruik voor PUT dezelfde velden en de URL `/api/projects/{id}`. Blogposts gebruiken `title`, `category`, `summary`, `content` en `publicationDate`. Swagger toont de DTO-schema's en publieke GET-routes. Voor beveiligde schrijfacties gebruiken deze voorbeelden curl met cookies en CSRF-header; Swagger injecteert die header niet automatisch.
+Gebruik voor PUT dezelfde velden en de URL `/api/projects/{id}`. Blogposts gebruiken `title`, `category`, `summary`, `content` en `publicationDate`. Swagger toont de DTO-schema's en haalt bij iedere schrijfactie automatisch een nieuw CSRF-token op. Het token en de bijbehorende cookies worden meegestuurd, ook na login of logout. Vul bij registratie en login alleen `email` en `password` in en klik op Execute; handmatig een token kopiëren is niet nodig. Gebruik een wachtwoord dat aan de bovenstaande eisen voldoet. Voor curl blijven de expliciete cookie- en CSRF-headers uit de voorbeelden nodig.
 
 Uitloggen:
 
