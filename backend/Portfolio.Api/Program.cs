@@ -45,9 +45,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("PortfolioFrontend", policy =>
     {
-        var origins = builder.Configuration.GetSection("Cors:AllowedOrigins")
-            .Get<string[]>() ?? Array.Empty<string>();
-        policy.WithOrigins(origins).WithMethods("GET");
+        policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
     });
 });
 builder.Services.AddScoped<ProjectService>();

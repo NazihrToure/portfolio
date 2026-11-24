@@ -1,6 +1,6 @@
 # Portfolio
 
-Een bestaande portfoliosite met HTML, CSS en JavaScript en een ASP.NET Core Web API op .NET 10. Projecten en blogposts worden via Entity Framework Core opgeslagen in SQLite. SQLite wordt gebruikt met toestemming van de docent.
+Een bestaande portfoliosite met HTML, CSS en JavaScript en een ASP.NET Core Web API op .NET 10. Projecten, blogposts en Identity-gebruikers worden via Entity Framework Core opgeslagen in SQL Server (database db82485 bij MonsterASP). SQLite wordt alleen nog gebruikt voor geïsoleerde tests.
 
 Opdracht 4 voegt ASP.NET Core Identity, cookie-authenticatie, de rollen Gast/Editor/Admin en xUnit-integratietests toe. De website en bestaande CRUD-routes blijven behouden.
 
@@ -19,10 +19,15 @@ Voer vanuit de hoofdmap uit:
 npm ci
 dotnet restore Portfolio.slnx
 dotnet tool restore
-dotnet ef database update --project backend/Portfolio.Api
 ```
 
-De database wordt niet meegeleverd. Voer de migraties uit voordat je de API start. Bij een bestaande database blijven projecten en blogposts behouden; de Identity-migratie voegt gebruikerstabellen toe. Maak bij bestaande belangrijke data eerst een lokale back-up.
+Stel eerst de connection string in zoals hieronder beschreven. Maak daarna de SQL Server-tabellen aan:
+
+```sh
+dotnet ef database update --context SqlServerPortfolioDbContext --project backend/Portfolio.Api
+```
+
+Voer de SQL Server-migratie uit voordat je de API start. Deze maakt de portfolio- en Identity-tabellen aan. De oude SQLite-database en migraties blijven behouden, maar SQLite-data wordt niet automatisch naar SQL Server gekopieerd.
 
 ## Starten
 
@@ -56,32 +61,34 @@ Het launchprofiel gebruikt Development. Alleen daarin zijn Swagger en het lokale
 | `backend/Portfolio.Api/Migrations` | Versiebeheer van de databasestructuur |
 | `backend/Portfolio.Api.Tests` | xUnit-tests via de echte HTTP-pipeline |
 
-De bestaande CRUD-stroom blijft `Controller → Service → DbContext → SQLite`. Identity beheert gebruikers, wachtwoordhashes, cookies en rollen.
+De bestaande CRUD-stroom blijft `Controller → Service → DbContext → SQL Server`. Identity beheert gebruikers, wachtwoordhashes, cookies en rollen.
 
 ## Database en migraties
 
-De gebruikte connection string in `backend/Portfolio.Api/appsettings.json` is:
+De API gebruikt `ConnectionStrings:PortfolioDatabase`. Het publieke adres voor lokaal gebruik is `db82485.public.databaseasp.net,1433`, database en login zijn `db82485`. Remote access moet ingeschakeld blijven. Bij hosting binnen hetzelfde datacenter kan `db82485.databaseasp.net` worden gebruikt.
 
-```json
-{
-  "ConnectionStrings": {
-    "PortfolioDatabase": "Data Source=portfolio.db"
-  }
-}
+De configuratie in Git bevat geen wachtwoord. Bewaar lokaal de volledige connection string in .NET User Secrets. Vanuit de hoofdmap kun je die verborgen invoeren:
+
+```sh
+python3 -c "
+import getpass
+import json
+import subprocess
+connection = getpass.getpass('Volledige SQL Server connection string: ')
+subprocess.run(['dotnet', 'user-secrets', 'set', '--project', 'backend/Portfolio.Api'], input=json.dumps({'ConnectionStrings:PortfolioDatabase': connection}), text=True, check=True)
+"
 ```
 
-Relatieve databasepaden worden ten opzichte van de API-contentroot opgelost. Bij `dotnet run --project backend/Portfolio.Api` staat de database in `backend/Portfolio.Api/portfolio.db`. Een eventueel lokaal aanwezige `DefaultConnection` wordt niet gebruikt door deze SQLite-API.
-
-Een andere database kan via de omgevingsvariabele `ConnectionStrings__PortfolioDatabase` worden ingesteld. Zet geen wachtwoorden of secrets in configuratiebestanden in Git.
+Gebruik de remote connection string van de provider met `Encrypt=True;TrustServerCertificate=True;MultipleActiveResultSets=True`. De verbinding is versleuteld; de certificaatvalidatie wordt volgens de providerconfiguratie overgeslagen. User Secrets worden in Development geladen en staan buiten de repository. Stel bij hosting de volledige connection string in als omgevingsvariabele `ConnectionStrings__PortfolioDatabase`; zet geen wachtwoorden in Git. Een eventueel lokaal aanwezige `DefaultConnection` wordt niet gebruikt.
 
 Na een datamodelwijziging:
 
 ```sh
-dotnet ef migrations add NaamVanDeWijziging --project backend/Portfolio.Api
-dotnet ef database update --project backend/Portfolio.Api
+dotnet ef migrations add NaamVanDeWijziging --context SqlServerPortfolioDbContext --output-dir Migrations/SqlServer --project backend/Portfolio.Api
+dotnet ef database update --context SqlServerPortfolioDbContext --project backend/Portfolio.Api
 ```
 
-Controleer de migratie voordat je deze toepast. De API past migraties niet automatisch toe. De rollen Gast, Editor en Admin worden bij het opstarten aangemaakt als ze ontbreken. Er zijn geen standaardaccounts of standaardwachtwoorden.
+SQL Server heeft een eigen context en migratiereeks in `Migrations/SqlServer`. De bestaande SQLite-migraties blijven beschikbaar voor de tests. Controleer migraties voordat je ze toepast. De API past ze niet automatisch toe. De rollen Gast, Editor en Admin worden bij het opstarten aangemaakt als ze ontbreken. Er zijn geen standaardaccounts of standaardwachtwoorden.
 
 ## Registreren en inloggen
 
@@ -184,7 +191,7 @@ Schrijfacties vereisen geldige invoer en een geldig CSRF-token. Een niet-bestaan
 | `GET /api/auth/me` | Ingelogd | 200 of 401 |
 | `POST /api/auth/logout` | Ingelogd, CSRF vereist | 204, 400 of 401 |
 
-De bestaande frontend gebruikt alleen publieke GET-verzoeken. `Cors:AllowedOrigins` bepaalt welke frontendadressen deze mogen uitlezen. Cross-origin cookie-login vanuit de statische frontend is niet toegevoegd; gebruik voor beheer de API rechtstreeks. Er is geen nieuw dashboard.
+De bestaande frontend gebruikt alleen publieke GET-verzoeken. CORS staat alle origins, methoden en headers toe (`Access-Control-Allow-Origin: *`), inclusief preflight-verzoeken. Autorisatie en CSRF-controles blijven gelden. Wildcard-CORS staat geen cross-origin authenticatiecookies toe; er wordt geen `Access-Control-Allow-Credentials` teruggestuurd. Cross-origin cookie-login vanuit de statische frontend is niet toegevoegd; gebruik voor beheer de API rechtstreeks. Er is geen nieuw dashboard.
 
 ## Tests uitvoeren
 
@@ -193,7 +200,7 @@ dotnet build Portfolio.slnx
 dotnet test Portfolio.slnx
 ```
 
-De 30 xUnit-testgevallen gebruiken per test een eigen in-memory SQLite-database met de echte migraties. Ze wijzigen geen lokale portfoliodatabase. De HTTP-tests gebruiken WebApplicationFactory, echte Identity-gebruikers en cookies; authenticatie wordt niet nagebootst.
+De 33 xUnit-testgevallen gebruiken per test een eigen in-memory SQLite-database met de echte migraties. Ze wijzigen geen lokale portfoliodatabase. De HTTP-tests gebruiken WebApplicationFactory, echte Identity-gebruikers en cookies; authenticatie wordt niet nagebootst.
 
 Getest worden:
 
@@ -203,7 +210,8 @@ Getest worden:
 - Registratie, unieke e-mailadressen, wachtwoordhashing en automatische Gast-toekenning.
 - Login, cookie-eigenschappen, logout, mislukte login en accountblokkering.
 - CSRF-bescherming, herhaalbare roltoekenning en intrekking van sessies bij rolwijzigingen.
-- Behoud van bestaande portfolio-inhoud bij de Identity-migratie.
+- Behoud van bestaande SQLite-portfolio-inhoud bij de Identity-migratie.
+- CORS voor willekeurige origins en preflight-verzoeken, met behoud van autorisatie.
 
 ## Frontendbuild
 
