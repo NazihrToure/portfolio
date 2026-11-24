@@ -10,6 +10,10 @@ public class PortfolioDbContext : IdentityDbContext<IdentityUser>
     public PortfolioDbContext(DbContextOptions<PortfolioDbContext> options) : base(options) {
     }
 
+    protected PortfolioDbContext(DbContextOptions options) : base(options)
+    {
+    }
+
     public DbSet<Project> Projects => Set<Project>();
     public DbSet<Blogpost> Blogposts => Set<Blogpost>();
 }

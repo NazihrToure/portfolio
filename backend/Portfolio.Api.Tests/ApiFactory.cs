@@ -31,6 +31,10 @@ public class ApiFactory : WebApplicationFactory<Program>
         builder.UseEnvironment("Development");
         builder.ConfigureServices(services =>
         {
+            services.RemoveAll<PortfolioDbContext>();
+            services.RemoveAll<SqlServerPortfolioDbContext>();
+            services.RemoveAll<DbContextOptions<SqlServerPortfolioDbContext>>();
+            services.RemoveAll<IDbContextOptionsConfiguration<SqlServerPortfolioDbContext>>();
             services.RemoveAll<DbContextOptions<PortfolioDbContext>>();
             services.RemoveAll<IDbContextOptionsConfiguration<PortfolioDbContext>>();
             services.AddDbContext<PortfolioDbContext>(options => options.UseSqlite(_connection));

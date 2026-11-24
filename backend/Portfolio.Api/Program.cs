@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Portfolio.Api.Data;
 using Portfolio.Api.Services;
@@ -7,13 +6,8 @@ using Portfolio.Api.Services;
 var assigningRole = args.FirstOrDefault() == "assign-role";
 var builder = WebApplication.CreateBuilder(assigningRole ? Array.Empty<string>() : args);
 
-var connectionString = new SqliteConnectionStringBuilder(
-    builder.Configuration.GetConnectionString("PortfolioDatabase"));
-connectionString.DataSource = Path.GetFullPath(
-    connectionString.DataSource, builder.Environment.ContentRootPath);
-
-builder.Services.AddDbContext<PortfolioDbContext>(options =>
-    options.UseSqlite(connectionString.ConnectionString));
+builder.Services.AddDbContext<PortfolioDbContext, SqlServerPortfolioDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("PortfolioDatabase")));
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 {
